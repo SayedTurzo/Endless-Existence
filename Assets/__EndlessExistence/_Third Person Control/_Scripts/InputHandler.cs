@@ -19,6 +19,7 @@ namespace __EndlessExistence._Third_Person_Control._Scripts
         [SerializeField] private string look = "Look";
         [SerializeField] private string sprint = "Sprint";
         [SerializeField] private string jump = "Jump";
+        [SerializeField] private string interact = "Interact";
 
         #endregion
 
@@ -29,6 +30,7 @@ namespace __EndlessExistence._Third_Person_Control._Scripts
         private InputAction lookAction;
         private InputAction sprintAction;
         private InputAction jumpAction;
+        private InputAction interactAction;
 
         #endregion
         
@@ -36,6 +38,7 @@ namespace __EndlessExistence._Third_Person_Control._Scripts
         public Vector2 LookInput { get; private set; }
         public bool JumpTriggered { get; private set; }
         public float SprintValue { get; private set; }
+        public bool InteractionTriggered { get; private set; }
         
         public static InputHandler Instance { get; private set; }
 
@@ -55,6 +58,7 @@ namespace __EndlessExistence._Third_Person_Control._Scripts
             lookAction = playerControls.FindActionMap(actionMapName).FindAction(look);
             sprintAction = playerControls.FindActionMap(actionMapName).FindAction(sprint);
             jumpAction = playerControls.FindActionMap(actionMapName).FindAction(jump);
+            interactAction = playerControls.FindActionMap(actionMapName).FindAction(interact);
             RegisterInputActions();
         }
 
@@ -71,6 +75,9 @@ namespace __EndlessExistence._Third_Person_Control._Scripts
             
             jumpAction.performed += context => JumpTriggered = true;
             jumpAction.canceled += context => JumpTriggered = false;
+
+            interactAction.performed += context => InteractionTriggered = true;
+            interactAction.canceled += context => InteractionTriggered = false;
         }
 
         private void OnEnable()
@@ -79,6 +86,7 @@ namespace __EndlessExistence._Third_Person_Control._Scripts
             lookAction.Enable();
             sprintAction.Enable();
             jumpAction.Enable();
+            interactAction.Enable();
             
         }
 
@@ -88,6 +96,7 @@ namespace __EndlessExistence._Third_Person_Control._Scripts
             lookAction.Disable();
             sprintAction.Disable();
             jumpAction.Disable();
+            interactAction.Disable();
         }
     }
 }
