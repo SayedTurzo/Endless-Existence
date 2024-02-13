@@ -7,5 +7,7 @@ namespace __EndlessExistence.Item_Interaction.Scripts.ItemScripts
         bool HaveDescription { get; set; }
 
         void SetDescription();
+
+        void Interact();
     }
 }

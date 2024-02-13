@@ -20,8 +20,8 @@ namespace __EndlessExistence.Item_Interaction.Scripts.ItemScripts
         {
             if (canInteract && InputHandler.Instance.InteractionTriggered)
             {
+                _parent.GetComponent<EE_IItem>().Interact();
                 canInteract = false;
-                Debug.Log("Do somehting");
             }
         }
 

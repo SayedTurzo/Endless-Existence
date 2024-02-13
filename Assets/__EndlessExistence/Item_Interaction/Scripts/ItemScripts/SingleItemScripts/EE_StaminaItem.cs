@@ -43,5 +43,9 @@ namespace __EndlessExistence.Item_Interaction.Scripts.ItemScripts.SingleItemScri
         {
             gameObject.GetComponent<EE_Item>().itemDescription.text = Description;
         }
+
+        public void Interact()
+        {
+            Debug.Log("<color=blue>Stamina used!</color>");        }
     }
 }
