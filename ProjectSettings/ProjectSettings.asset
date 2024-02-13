@@ -826,8 +826,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Endless Existence
-  metroPackageVersion: 
+  metroPackageName: EndlessExistence
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -835,7 +835,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: Endless Existence
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: Endless Existence
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
