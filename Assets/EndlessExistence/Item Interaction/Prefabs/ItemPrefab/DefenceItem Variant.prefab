@@ -32,17 +32,17 @@ PrefabInstance:
     - target: {fileID: 8811991402840120607, guid: 01c5cf3ef10a1ce44826fba0fb695cf1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.29
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8811991402840120607, guid: 01c5cf3ef10a1ce44826fba0fb695cf1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8811991402840120607, guid: 01c5cf3ef10a1ce44826fba0fb695cf1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.55
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8811991402840120607, guid: 01c5cf3ef10a1ce44826fba0fb695cf1,
         type: 3}
@@ -131,7 +131,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a709d1e1039a3c5458a8df62c9a163f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  haveDescription: 1
   description: Defence Item - This will increase your defence
+  strength: 0
+  dontUseDefaultInteraction: 0
+  destroyOnUse: 0
+  onInteractWithItem:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &9105105550211561263 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4219217227386846489, guid: 01c5cf3ef10a1ce44826fba0fb695cf1,
