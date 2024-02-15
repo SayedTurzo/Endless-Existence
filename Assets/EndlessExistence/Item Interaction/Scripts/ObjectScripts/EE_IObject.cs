@@ -1,6 +1,6 @@
-namespace EndlessExistence.Item_Interaction.Scripts.ItemScripts
+namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
 {
-    public interface EE_IItem
+    public interface EE_IObject
     { 
         string Description { get; set; }
         float Value { get; set; }

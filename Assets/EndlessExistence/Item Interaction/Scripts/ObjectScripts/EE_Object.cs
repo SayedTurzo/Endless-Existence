@@ -1,14 +1,15 @@
 using CustomInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace EndlessExistence.Item_Interaction.Scripts.ItemScripts
+namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
 {
-    public class EE_Item : MonoBehaviour
+    public class EE_Object : MonoBehaviour
     {
         [HorizontalLine("Item Component", 2, FixedColor.Red)] 
         [SerializeField] private GameObject interactCanvas;
-        [SerializeField] public GameObject itemDescriptionPanel;
+        [FormerlySerializedAs("itemDescriptionPanel")] [SerializeField] public GameObject objectDescriptionPanel;
         [SerializeField] public GameObject itemInteractionPanel;
 
         [SerializeField] private TextMeshProUGUI interactText;

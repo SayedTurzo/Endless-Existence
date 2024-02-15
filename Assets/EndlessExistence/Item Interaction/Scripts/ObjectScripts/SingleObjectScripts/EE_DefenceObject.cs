@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace EndlessExistence.Item_Interaction.Scripts.ItemScripts.SingleItemScripts
+namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts.SingleObjectScripts
 {
-    public class EE_DefenceItem : ItemContainer
+    public class EE_DefenceObject : ObjectContainer
     {
         public override void Interact()
         {

@@ -1,17 +1,22 @@
+using System;
+using System.Collections;
 using CustomInspector;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
-namespace EndlessExistence.Item_Interaction.Scripts.ItemScripts
+namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
 {
-    public abstract class ItemContainer : MonoBehaviour,EE_IItem
+    public abstract class ObjectContainer : MonoBehaviour,EE_IObject
     {
         [MessageBox("Description = Item Description \n Strength = How much effect the item will have.", MessageBoxType.Info)]
-        [SerializeField] private bool haveDescription = true;
+        [SerializeField] private bool haveDescription = false;
         [ShowIf(nameof(haveDescription))][SerializeField] private string description;
         [SerializeField] private float strength;
 
         [HorizontalLine("Interaction Settings")]
+        public bool autoInteract = false;
+        public bool continuousInteraction;
         public bool dontUseDefaultInteraction = false;
         public bool destroyOnUse = false;
         [Header("Custom Event")]
@@ -44,17 +49,28 @@ namespace EndlessExistence.Item_Interaction.Scripts.ItemScripts
             }
             else
             {
-                gameObject.GetComponent<EE_Item>().itemDescriptionPanel.SetActive(false);
+                gameObject.GetComponent<EE_Object>().objectDescriptionPanel.SetActive(false);
             }
 
         }
 
         public void SetDescription()
         {
-            gameObject.GetComponent<EE_Item>().itemDescription.text = Description;
+            gameObject.GetComponent<EE_Object>().itemDescription.text = Description;
         }
 
         public abstract void Interact();
+
+        public void SetCanInteractFlag(InteractionSensor sensor)
+        {
+            StartCoroutine(Delay(sensor));
+        }
+        
+        IEnumerator Delay(InteractionSensor sensor)
+        {
+            yield return new WaitForSeconds(.2f);
+            sensor._canInteract = true;
+        }
 
         public void DestroyOnUse()
         {

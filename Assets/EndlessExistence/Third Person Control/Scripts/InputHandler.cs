@@ -76,7 +76,13 @@ namespace EndlessExistence.Third_Person_Control.Scripts
             jumpAction.performed += context => JumpTriggered = true;
             jumpAction.canceled += context => JumpTriggered = false;
 
-            interactAction.performed += context => InteractionTriggered = true;
+            interactAction.performed += context =>
+            {
+                if (!InteractionTriggered)
+                {
+                    InteractionTriggered = true;
+                }
+            };
             interactAction.canceled += context => InteractionTriggered = false;
         }
 

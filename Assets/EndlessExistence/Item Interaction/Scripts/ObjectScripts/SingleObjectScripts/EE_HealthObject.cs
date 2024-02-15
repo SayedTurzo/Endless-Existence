@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace EndlessExistence.Item_Interaction.Scripts.ItemScripts.SingleItemScripts
+namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts.SingleObjectScripts
 {
-    public class EE_HealthItem : ItemContainer
+    public class EE_HealthObject : ObjectContainer
     {
         public override void Interact()
         {
