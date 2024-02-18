@@ -9,7 +9,7 @@ public class TestingScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player collission");
+            Debug.Log("Player collision");
         }
     }
 }
