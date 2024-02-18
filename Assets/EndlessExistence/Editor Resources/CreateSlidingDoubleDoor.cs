@@ -3,20 +3,20 @@ using UnityEngine;
 
 namespace EndlessExistence.Editor_Resources
 {
-    public static class CreateSimpleDoor
+    public static class CreateSlidingDoubleDoor
     {
-        [MenuItem("GameObject/Endless Existence/Doors/Create Simple Door", false, 2)]
+        [MenuItem("GameObject/Endless Existence/Doors/Create Sliding Double Door", false, 2)]
         static void CreateCustomObject(MenuCommand menuCommand)
         {
             string prefabPath =
-                @"Assets\EndlessExistence\Item Interaction\Prefabs\ObjectPrefab\SimpleDoor.prefab";
+                @"Assets\EndlessExistence\Item Interaction\Prefabs\ObjectPrefab\SlidingDoubleDoor.prefab";
             //Debug.Log(prefabPath);
             // Load the prefab
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
 
             // Instantiate the prefab
             GameObject customObject = GameObject.Instantiate(prefab);
-            customObject.name = "SimpleDoor";
+            customObject.name = "SlidingDoubleDoor";
 
             // Set the parent and alignment
             GameObjectUtility.SetParentAndAlign(customObject, menuCommand.context as GameObject);

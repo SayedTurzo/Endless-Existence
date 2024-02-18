@@ -72,11 +72,17 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
                     _baseObjectScript.TriggerCanvas();
                 }
 
-                //Special condition for doors
-                if (_parent.GetComponent<EE_SimpleDoorObject>()!=null && _singleObjectScript.autoInteract)
+                #region Door Special Conditions
+                
+                if (_singleObjectScript != null && _singleObjectScript.autoInteract)
                 {
-                    ThingsToDoOnInteract();
+                    if (_singleObjectScript is EE_SimpleDoorObject or EE_SimpleDoubleDoor or EE_SlidingDoubleDoor or EE_SlidingSingleDoor)
+                    {
+                        ThingsToDoOnInteract();
+                    }
                 }
+
+                #endregion
                 
                 _canInteract = false;
                 _baseObjectScript.TriggerEffect();
