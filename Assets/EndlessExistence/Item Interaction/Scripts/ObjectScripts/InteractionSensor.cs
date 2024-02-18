@@ -1,4 +1,5 @@
 using System;
+using EndlessExistence.Item_Interaction.Scripts.ObjectScripts.SingleObjectScripts;
 using EndlessExistence.Third_Person_Control.Scripts;
 using UnityEngine;
 
@@ -69,6 +70,12 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
                 if (!_singleObjectScript.autoInteract)
                 {
                     _baseObjectScript.TriggerCanvas();
+                }
+
+                //Special condition for doors
+                if (_parent.GetComponent<EE_SimpleDoorObject>()!=null && _singleObjectScript.autoInteract)
+                {
+                    ThingsToDoOnInteract();
                 }
                 
                 _canInteract = false;

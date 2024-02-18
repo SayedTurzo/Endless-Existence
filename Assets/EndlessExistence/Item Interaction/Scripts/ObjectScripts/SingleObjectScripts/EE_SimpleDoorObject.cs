@@ -31,9 +31,19 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts.SingleObjectSc
 
         private void ControlDoor()
         {
-            StartCoroutine(isOpen
-                ? RotateDoor(initialRotation)
-                : RotateDoor(initialRotation * Quaternion.Euler(0f, openAngle, 0f)));
+            if (isOpen)
+            {
+                StartCoroutine(RotateDoor(initialRotation));
+            }
+            else
+            {
+                // Calculate the target rotation based on the current rotation and openAngle
+                Quaternion targetRotation = initialRotation * Quaternion.Euler(0f, openAngle, 0f);
+                StartCoroutine(RotateDoor(targetRotation));
+            }
+            // StartCoroutine(isOpen
+            //     ? RotateDoor(initialRotation)
+            //     : RotateDoor(initialRotation * Quaternion.Euler(0f, openAngle, 0f)));
         }
         
         
@@ -52,11 +62,6 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts.SingleObjectSc
             rotatablePart.rotation = targetRotation;
 
             isOpen = !isOpen;
-            if (autoInteract)
-            {
-                initialRotation = startRotation;
-                //startRotation = rotatablePart.rotation;
-            }
         }
     }
 }
