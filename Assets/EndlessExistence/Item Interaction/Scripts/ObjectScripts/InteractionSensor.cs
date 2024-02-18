@@ -61,7 +61,7 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
 
             }
         }
-        
+
 
         private void OnTriggerExit(Collider other)
         {
