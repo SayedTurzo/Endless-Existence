@@ -10,15 +10,18 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
         [HorizontalLine("Item Component", 2, FixedColor.Red)] 
         [SerializeField] private GameObject interactCanvas;
         [FormerlySerializedAs("itemDescriptionPanel")] [SerializeField] public GameObject objectDescriptionPanel;
-        [SerializeField] public GameObject itemInteractionPanel;
+        [SerializeField] public GameObject objectInteractionPanel;
+        [SerializeField] public GameObject objectInspectPanel;
 
         [SerializeField] private TextMeshProUGUI interactText;
-        [SerializeField] public TextMeshProUGUI itemDescription;
+        [SerializeField] public TextMeshProUGUI objectDescription;
+        [SerializeField] public TextMeshProUGUI inspectText;
     
         [MessageBox("Default tag for Player is 'Player'.Change if needed!",MessageBoxType.Info)]
         [CustomInspector.Tag] [SerializeField] internal string playerTag = "Player";
 
         [SerializeField] internal string interactTextString = "E";
+        [SerializeField] internal string inspectTextString = "I";
     
         [HorizontalLine("Effect", 3, FixedColor.Purple)] 
         [MessageBox("To use effect drag and drop your effect into the EffectHolder gameobject of Item in hierarchy",MessageBoxType.Info)]
@@ -57,6 +60,7 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
             }
 
             interactText.text = interactTextString;
+            inspectText.text = inspectTextString;
         }
 
         internal void TriggerCanvas()

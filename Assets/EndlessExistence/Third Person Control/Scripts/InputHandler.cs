@@ -20,6 +20,8 @@ namespace EndlessExistence.Third_Person_Control.Scripts
         [SerializeField] private string sprint = "Sprint";
         [SerializeField] private string jump = "Jump";
         [SerializeField] private string interact = "Interact";
+        [SerializeField] private string inspect = "Inspect";
+        [SerializeField] private string selectionPress = "SelectionPress";
 
         #endregion
 
@@ -31,6 +33,8 @@ namespace EndlessExistence.Third_Person_Control.Scripts
         private InputAction sprintAction;
         private InputAction jumpAction;
         private InputAction interactAction;
+        private InputAction inspectAction;
+        private InputAction selectionPressAction;
 
         #endregion
         
@@ -39,7 +43,9 @@ namespace EndlessExistence.Third_Person_Control.Scripts
         public bool JumpTriggered { get; private set; }
         public float SprintValue { get; private set; }
         public bool InteractionTriggered { get; private set; }
-        
+        public bool SelectionTriggered { get; private set; }
+        public bool InspectionTriggered { get; private set; }
+
         public static InputHandler Instance { get; private set; }
 
         private void Awake()
@@ -59,6 +65,8 @@ namespace EndlessExistence.Third_Person_Control.Scripts
             sprintAction = playerControls.FindActionMap(actionMapName).FindAction(sprint);
             jumpAction = playerControls.FindActionMap(actionMapName).FindAction(jump);
             interactAction = playerControls.FindActionMap(actionMapName).FindAction(interact);
+            selectionPressAction = playerControls.FindActionMap(actionMapName).FindAction(selectionPress);
+            inspectAction = playerControls.FindActionMap(actionMapName).FindAction(inspect);
             RegisterInputActions();
         }
 
@@ -76,14 +84,14 @@ namespace EndlessExistence.Third_Person_Control.Scripts
             jumpAction.performed += context => JumpTriggered = true;
             jumpAction.canceled += context => JumpTriggered = false;
 
-            interactAction.performed += context =>
-            {
-                if (!InteractionTriggered)
-                {
-                    InteractionTriggered = true;
-                }
-            };
+            interactAction.performed += context => InteractionTriggered = true;
             interactAction.canceled += context => InteractionTriggered = false;
+
+            selectionPressAction.performed += context => SelectionTriggered = true;
+            selectionPressAction.canceled += context => SelectionTriggered = false;
+
+            inspectAction.performed += context => InspectionTriggered = true;
+            inspectAction.canceled += context => InspectionTriggered = false;
         }
 
         private void OnEnable()
@@ -93,6 +101,8 @@ namespace EndlessExistence.Third_Person_Control.Scripts
             sprintAction.Enable();
             jumpAction.Enable();
             interactAction.Enable();
+            selectionPressAction.Enable();
+            inspectAction.Enable();
             
         }
 
@@ -103,6 +113,8 @@ namespace EndlessExistence.Third_Person_Control.Scripts
             sprintAction.Disable();
             jumpAction.Disable();
             interactAction.Disable();
+            selectionPressAction.Disable();
+            inspectAction.Disable();
         }
     }
 }

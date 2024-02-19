@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canInteract: 0
+  isInspecting: 0
 --- !u!1 &3596867297670762564
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +176,7 @@ GameObject:
   - component: {fileID: 5088201278177579342}
   - component: {fileID: 2305852954098058278}
   - component: {fileID: 903188834639329197}
+  - component: {fileID: 7327261757933216929}
   m_Layer: 0
   m_Name: DefenceItem
   m_TagString: Untagged
@@ -263,11 +265,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactCanvas: {fileID: 83267081871833462}
   objectDescriptionPanel: {fileID: 7416510317670398531}
-  itemInteractionPanel: {fileID: 2971107195141487511}
+  objectInteractionPanel: {fileID: 2971107195141487511}
+  objectInspectPanel: {fileID: 7173656256677028198}
   interactText: {fileID: 67120810818119336}
-  itemDescription: {fileID: 4207229630105499228}
+  objectDescription: {fileID: 4207229630105499228}
+  inspectText: {fileID: 8447502467600988429}
   playerTag: Player
   interactTextString: E
+  inspectTextString: I
   effectHolder: {fileID: 3596867297670762564}
   useEffect: 1
   effect: {fileID: 6359438325985584623, guid: 25344b79b6dc94a418609b10946a8b05, type: 3}
@@ -299,14 +304,16 @@ MonoBehaviour:
   haveDescription: 1
   description: Defence Item - This will increase your defence
   strength: 0
-  continuousInteraction: 0
+  autoInteract: 0
+  continuousInteraction: 1
   dontUseDefaultInteraction: 0
   destroyOnUse: 0
   onInteractWithItem:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerEffectController, Assembly-CSharp
+        m_TargetAssemblyTypeName: EndlessExistence.Third_Person_Control.Scripts.PlayerEffectController,
+          Assembly-CSharp
         m_MethodName: PlayEffect
         m_Mode: 2
         m_Arguments:
@@ -318,6 +325,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7327261757933216929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6630158565540518901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a1cb0bc3bac30d429b8ffcb78e4d8b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.5
+  description: Ow ! This is a Defence item! Consuming it will increase my defence.....
 --- !u!1001 &281111487924965207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -424,6 +445,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ObjectDescription
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301430879965356507, guid: 49632b0b8bec57b47a0f4ba96c34c383,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7189391456379410812, guid: 49632b0b8bec57b47a0f4ba96c34c383,
         type: 3}
@@ -582,9 +608,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7173656256677028198 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 103576003622928748, guid: 49632b0b8bec57b47a0f4ba96c34c383,
+    type: 3}
+  m_PrefabInstance: {fileID: 7125270239210446858}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7416510317670398531 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 292372644157610569, guid: 49632b0b8bec57b47a0f4ba96c34c383,
     type: 3}
   m_PrefabInstance: {fileID: 7125270239210446858}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8447502467600988429 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1718551194631837959, guid: 49632b0b8bec57b47a0f4ba96c34c383,
+    type: 3}
+  m_PrefabInstance: {fileID: 7125270239210446858}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

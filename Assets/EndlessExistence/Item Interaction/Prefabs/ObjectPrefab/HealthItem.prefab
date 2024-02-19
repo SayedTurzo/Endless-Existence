@@ -199,7 +199,7 @@ Transform:
   - {fileID: 8353545500475278829}
   - {fileID: 1283670660497752743}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &6709529280214140240
 BoxCollider:
@@ -263,11 +263,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactCanvas: {fileID: 91667268086764964}
   objectDescriptionPanel: {fileID: 7390060417644549777}
-  itemInteractionPanel: {fileID: 2979419628735846213}
+  objectInteractionPanel: {fileID: 2979419628735846213}
+  objectInspectPanel: {fileID: 7201126366003957172}
   interactText: {fileID: 39421996579818106}
-  itemDescription: {fileID: 4179741859784694414}
+  objectDescription: {fileID: 4179741859784694414}
+  inspectText: {fileID: 8456060949117539807}
   playerTag: Player
   interactTextString: E
+  inspectTextString: I
   effectHolder: {fileID: 2049809699841061775}
   useEffect: 1
   effect: {fileID: 5649842865816416554, guid: b9dae60924cae4146ac5b07da3c11cf2, type: 3}
@@ -299,6 +302,7 @@ MonoBehaviour:
   haveDescription: 1
   description: Health Item - It will increase you current health
   strength: 0
+  autoInteract: 0
   continuousInteraction: 0
   dontUseDefaultInteraction: 0
   destroyOnUse: 0
@@ -597,9 +601,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7201126366003957172 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 103576003622928748, guid: 49632b0b8bec57b47a0f4ba96c34c383,
+    type: 3}
+  m_PrefabInstance: {fileID: 7097800097654541528}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7390060417644549777 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 292372644157610569, guid: 49632b0b8bec57b47a0f4ba96c34c383,
     type: 3}
   m_PrefabInstance: {fileID: 7097800097654541528}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8456060949117539807 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1718551194631837959, guid: 49632b0b8bec57b47a0f4ba96c34c383,
+    type: 3}
+  m_PrefabInstance: {fileID: 7097800097654541528}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using EndlessExistence.Item_Interaction.Scripts.ObjectScripts.SingleObjectScripts;
 using EndlessExistence.Third_Person_Control.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
 {
@@ -10,16 +12,31 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
         private GameObject _parent;
         private string _playerTag;
         public bool _canInteract;
+       public bool isInspecting = false;
 
         private ObjectContainer _singleObjectScript;
         private EE_Object _baseObjectScript;
+        private EE_InspectObject _inspectScript;
+
+        private ThirdPersonCharacterController _playerControl;
+        private GameObject inspectorCamera;
+
+
+        private Vector3 parentOriginalPos;
+        private Quaternion parentOriginalRotation;
 
         private void Awake()
         {
             _parent = transform.parent.gameObject;
             _baseObjectScript = _parent.GetComponent<EE_Object>();
             _singleObjectScript = _parent.GetComponent<ObjectContainer>();
+            if (_inspectScript!=null)
+            {
+                _parent.GetComponent<EE_InspectObject>();
+            }
             _playerTag = _baseObjectScript.playerTag;
+            inspectorCamera = FindObjectOfType<EE_InspectCamera>().gameObject;
+            
         }
 
         private void Update()
@@ -29,6 +46,64 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
                 _canInteract = false;
                 ThingsToDoOnInteract();
             }
+            
+            if (_canInteract && InputHandler.Instance.InspectionTriggered && !_singleObjectScript.autoInteract)
+            {
+                _canInteract = false;
+                DoInspection();
+            }
+            
+
+            if (isInspecting && Input.GetKeyDown(KeyCode.Escape))
+            {
+                EndInspection();
+            }
+        }
+
+        private void DoInspection()
+        {
+            _playerControl.enabled = false;
+            inspectorCamera.SetActive(true);
+            inspectorCamera.GetComponent<EE_InspectCamera>().ToggleLayer(_parent);
+            inspectorCamera.GetComponent<EE_InspectCamera>().descriptionText.text =
+                _parent.GetComponent<EE_InspectObject>().description;
+            parentOriginalPos = _parent.transform.position;
+            parentOriginalRotation = _parent.transform.rotation;
+
+            if (_parent.GetComponent<Rigidbody>()!=null)
+            {
+                _parent.GetComponent<Rigidbody>().useGravity = false;
+            }
+
+            _parent.transform.position =
+                inspectorCamera.GetComponent<EE_InspectCamera>().objectHolder.transform.position;
+        
+            if (_inspectScript==null)
+            {
+                _inspectScript = _parent.GetComponent<EE_InspectObject>();
+            }
+            _inspectScript.enabled = true;
+            isInspecting = true;
+        }
+
+        private void EndInspection()
+        {
+            _playerControl.enabled = true;
+            inspectorCamera.SetActive(false);
+            inspectorCamera.GetComponent<EE_InspectCamera>().ToggleLayer(_parent);
+            if (_parent.GetComponent<Rigidbody>()!=null)
+            {
+                _parent.GetComponent<Rigidbody>().useGravity = true;
+            }
+            _parent.transform.position = parentOriginalPos;
+            _parent.transform.rotation = parentOriginalRotation;
+                
+            if (_inspectScript==null)
+            {
+                _inspectScript = _parent.GetComponent<EE_InspectObject>();
+            }
+            _inspectScript.enabled = false;
+            isInspecting = false;
         }
 
         private void ThingsToDoOnInteract()
@@ -47,6 +122,7 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
         {
             if (other.CompareTag(_playerTag))
             {
+                _playerControl = other.gameObject.GetComponent<ThirdPersonCharacterController>();
                 if (!_singleObjectScript.autoInteract)
                 {
                     _baseObjectScript.TriggerCanvas();

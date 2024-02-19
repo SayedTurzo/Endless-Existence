@@ -56,7 +56,7 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
 
         public void SetDescription()
         {
-            gameObject.GetComponent<EE_Object>().itemDescription.text = Description;
+            gameObject.GetComponent<EE_Object>().objectDescription.text = Description;
         }
 
         public abstract void Interact();
