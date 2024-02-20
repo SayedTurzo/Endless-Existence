@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "Press",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenInventory",
+                    "type": "Button",
+                    "id": "8a7ded07-eb8a-4d0e-94d2-9da1d79bc033",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -232,6 +241,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SelectionPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2cdddbe6-ea48-480d-ba18-dc738582402b",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

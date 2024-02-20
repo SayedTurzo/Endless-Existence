@@ -22,6 +22,7 @@ namespace EndlessExistence.Third_Person_Control.Scripts
         [SerializeField] private string interact = "Interact";
         [SerializeField] private string inspect = "Inspect";
         [SerializeField] private string selectionPress = "SelectionPress";
+        [SerializeField] private string openInventory = "OpenInventory";
 
         #endregion
 
@@ -35,6 +36,7 @@ namespace EndlessExistence.Third_Person_Control.Scripts
         private InputAction interactAction;
         private InputAction inspectAction;
         private InputAction selectionPressAction;
+        private InputAction openInventoryAction;
 
         #endregion
         
@@ -45,6 +47,7 @@ namespace EndlessExistence.Third_Person_Control.Scripts
         public bool InteractionTriggered { get; private set; }
         public bool SelectionTriggered { get; private set; }
         public bool InspectionTriggered { get; private set; }
+        public bool OpenInventoryTriggered { get; private set; }
 
         public static InputHandler Instance { get; private set; }
 
@@ -67,6 +70,7 @@ namespace EndlessExistence.Third_Person_Control.Scripts
             interactAction = playerControls.FindActionMap(actionMapName).FindAction(interact);
             selectionPressAction = playerControls.FindActionMap(actionMapName).FindAction(selectionPress);
             inspectAction = playerControls.FindActionMap(actionMapName).FindAction(inspect);
+            openInventoryAction = playerControls.FindActionMap(actionMapName).FindAction(openInventory);
             RegisterInputActions();
         }
 
@@ -92,6 +96,11 @@ namespace EndlessExistence.Third_Person_Control.Scripts
 
             inspectAction.performed += context => InspectionTriggered = true;
             inspectAction.canceled += context => InspectionTriggered = false;
+
+            // openInventoryAction.performed += context => OpenInventoryTriggered = true;
+            // openInventoryAction.canceled += context => OpenInventoryTriggered = false;
+            //openInventoryAction.triggered => 
+
         }
 
         private void OnEnable()
@@ -103,6 +112,7 @@ namespace EndlessExistence.Third_Person_Control.Scripts
             interactAction.Enable();
             selectionPressAction.Enable();
             inspectAction.Enable();
+            openInventoryAction.Enable();
             
         }
 
@@ -115,6 +125,7 @@ namespace EndlessExistence.Third_Person_Control.Scripts
             interactAction.Disable();
             selectionPressAction.Disable();
             inspectAction.Disable();
+            openInventoryAction.Disable();
         }
     }
 }
