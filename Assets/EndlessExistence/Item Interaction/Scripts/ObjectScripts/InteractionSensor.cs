@@ -19,7 +19,7 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
         private EE_InspectObject _inspectScript;
 
         private ThirdPersonCharacterController _playerControl;
-        private GameObject inspectorCamera;
+        private Camera inspectorCamera;
 
 
         private Vector3 parentOriginalPos;
@@ -35,7 +35,7 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
                 _parent.GetComponent<EE_InspectObject>();
             }
             _playerTag = _baseObjectScript.playerTag;
-            inspectorCamera = FindObjectOfType<EE_InspectCamera>().gameObject;
+            inspectorCamera = FindObjectOfType<EE_InspectCamera>().inspectCamera;
             
         }
 
@@ -50,22 +50,25 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
             if (_canInteract && InputHandler.Instance.InspectionTriggered && !_singleObjectScript.autoInteract)
             {
                 _canInteract = false;
+                _playerControl.enabled = false;
                 DoInspection();
             }
             
 
             if (isInspecting && Input.GetKeyDown(KeyCode.Escape))
             {
+                _playerControl.enabled = true;
                 EndInspection();
             }
         }
 
         private void DoInspection()
         {
-            _playerControl.enabled = false;
-            inspectorCamera.SetActive(true);
-            inspectorCamera.GetComponent<EE_InspectCamera>().ToggleLayer(_parent);
-            inspectorCamera.GetComponent<EE_InspectCamera>().descriptionText.text =
+            //_playerControl.enabled = false;
+            EE_InspectCamera inspectorCamScript = inspectorCamera.GetComponent<EE_InspectCamera>();
+            inspectorCamScript.ToggleState(true);
+            inspectorCamScript.ToggleLayer(_parent);
+            inspectorCamScript.descriptionText.text =
                 _parent.GetComponent<EE_InspectObject>().description;
             parentOriginalPos = _parent.transform.position;
             parentOriginalRotation = _parent.transform.rotation;
@@ -88,9 +91,10 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
 
         private void EndInspection()
         {
-            _playerControl.enabled = true;
-            inspectorCamera.SetActive(false);
-            inspectorCamera.GetComponent<EE_InspectCamera>().ToggleLayer(_parent);
+            //_playerControl.enabled = true;
+            EE_InspectCamera inspectorCamScript = inspectorCamera.GetComponent<EE_InspectCamera>();
+            inspectorCamScript.ToggleState(false);
+            inspectorCamScript.ToggleLayer(_parent);
             if (_parent.GetComponent<Rigidbody>()!=null)
             {
                 _parent.GetComponent<Rigidbody>().useGravity = true;

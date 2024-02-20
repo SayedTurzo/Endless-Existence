@@ -12,6 +12,9 @@ public class EE_InspectCamera : MonoBehaviour
     public GameObject objectHolder;
     public TextMeshProUGUI descriptionText;
 
+    public GameObject effect;
+    public GameObject inspectCanvas;
+
     
     [Layer] public int targetLayerIndex;
     private string _targetLayerName;
@@ -37,7 +40,7 @@ public class EE_InspectCamera : MonoBehaviour
 
     private void Start()
     {
-        gameObject.SetActive(false);
+        ToggleState(false);
     }
 
 
@@ -60,7 +63,7 @@ public class EE_InspectCamera : MonoBehaviour
         if (layerIndex != -1)
         {
             obj.layer = layerIndex;
-            Debug.Log("Layer of " + obj.name + " set to: " + layerName);
+            //Debug.Log("Layer of " + obj.name + " set to: " + layerName);
 
             // Set the layer for all children
             foreach (Transform child in obj.transform)
@@ -72,5 +75,12 @@ public class EE_InspectCamera : MonoBehaviour
         {
             Debug.LogError("Layer not found: " + layerName);
         }
+    }
+
+    public void ToggleState(bool flag)
+    {
+        inspectCamera.enabled = flag;
+        inspectCanvas.SetActive(flag);
+        effect.SetActive(flag);
     }
 }
