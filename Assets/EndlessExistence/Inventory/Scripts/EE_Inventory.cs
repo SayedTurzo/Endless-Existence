@@ -1,8 +1,7 @@
-using System;
 using EndlessExistence.Third_Person_Control.Scripts;
 using UnityEngine;
 
-namespace EndlessExistence.Inventory
+namespace EndlessExistence.Inventory.Scripts
 {
     public class EE_Inventory : MonoBehaviour
     {
@@ -20,7 +19,7 @@ namespace EndlessExistence.Inventory
             if (InputHandler.Instance.OpenInventoryTriggered)
             {
                 Debug.Log("triggered open");
-    
+                InputHandler.Instance.OpenInventoryTriggered = false;
                 inventoryCanvas.SetActive(!inventoryCanvas.activeSelf);
             }
         }

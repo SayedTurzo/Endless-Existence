@@ -12,31 +12,35 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
         private GameObject _parent;
         private string _playerTag;
         public bool _canInteract;
-       public bool isInspecting = false;
+        public bool isInspecting = false;
 
         private ObjectContainer _singleObjectScript;
         private EE_Object _baseObjectScript;
         private EE_InspectObject _inspectScript;
 
         private ThirdPersonCharacterController _playerControl;
-        private Camera inspectorCamera;
-
-
+        //private Camera inspectorCamera;
+        
         private Vector3 parentOriginalPos;
         private Quaternion parentOriginalRotation;
+        private Rigidbody _rb;
 
         private void Awake()
         {
             _parent = transform.parent.gameObject;
             _baseObjectScript = _parent.GetComponent<EE_Object>();
             _singleObjectScript = _parent.GetComponent<ObjectContainer>();
-            if (_inspectScript!=null)
+            if (_parent.GetComponent<EE_InspectObject>()!=null)
             {
-                _parent.GetComponent<EE_InspectObject>();
+                _inspectScript = _parent.GetComponent<EE_InspectObject>();
             }
             _playerTag = _baseObjectScript.playerTag;
-            inspectorCamera = FindObjectOfType<EE_InspectCamera>().inspectCamera;
+            //inspectorCamera = EE_InspectCamera.Instance.inspectCamera;
             
+            if (_parent.GetComponent<Rigidbody>()!=null)
+            {
+                _rb = _parent.GetComponent<Rigidbody>();
+            }
         }
 
         private void Update()
@@ -44,14 +48,20 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
             if (_canInteract && InputHandler.Instance.InteractionTriggered && !_singleObjectScript.autoInteract)
             {
                 _canInteract = false;
+                InputHandler.Instance.InteractionTriggered = false;
                 ThingsToDoOnInteract();
             }
             
-            if (_canInteract && InputHandler.Instance.InspectionTriggered && !_singleObjectScript.autoInteract)
+            if (_canInteract && InputHandler.Instance.InspectionTriggered && !_singleObjectScript.autoInteract && _inspectScript!=null)
             {
-                _canInteract = false;
-                _playerControl.enabled = false;
+                InputHandler.Instance.InspectionTriggered = false;
                 DoInspection();
+            }
+            else if (isInspecting && InputHandler.Instance.InspectionTriggered)
+            {
+                InputHandler.Instance.InspectionTriggered = false;
+                _playerControl.enabled = true;
+                EndInspection();
             }
             
 
@@ -64,48 +74,34 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
 
         private void DoInspection()
         {
-            //_playerControl.enabled = false;
-            EE_InspectCamera inspectorCamScript = inspectorCamera.GetComponent<EE_InspectCamera>();
-            inspectorCamScript.ToggleState(true);
-            inspectorCamScript.ToggleLayer(_parent);
-            inspectorCamScript.descriptionText.text =
-                _parent.GetComponent<EE_InspectObject>().description;
+            _playerControl.enabled = false;
+            EE_InspectCamera.Instance.ToggleState(true);
+            EE_InspectCamera.Instance.ToggleLayer(_parent);
+            EE_InspectCamera.Instance.descriptionText.text = _inspectScript.description;
             parentOriginalPos = _parent.transform.position;
             parentOriginalRotation = _parent.transform.rotation;
 
-            if (_parent.GetComponent<Rigidbody>()!=null)
+            if (_rb!=null)
             {
-                _parent.GetComponent<Rigidbody>().useGravity = false;
+                _rb.useGravity = false;
             }
 
-            _parent.transform.position =
-                inspectorCamera.GetComponent<EE_InspectCamera>().objectHolder.transform.position;
-        
-            if (_inspectScript==null)
-            {
-                _inspectScript = _parent.GetComponent<EE_InspectObject>();
-            }
+            _parent.transform.position = EE_InspectCamera.Instance.objectHolder.transform.position;
             _inspectScript.enabled = true;
             isInspecting = true;
         }
 
         private void EndInspection()
         {
-            //_playerControl.enabled = true;
-            EE_InspectCamera inspectorCamScript = inspectorCamera.GetComponent<EE_InspectCamera>();
-            inspectorCamScript.ToggleState(false);
-            inspectorCamScript.ToggleLayer(_parent);
-            if (_parent.GetComponent<Rigidbody>()!=null)
+            _playerControl.enabled = true;
+            EE_InspectCamera.Instance.ToggleState(false);
+            EE_InspectCamera.Instance.ToggleLayer(_parent);
+            if (_rb!=null)
             {
-                _parent.GetComponent<Rigidbody>().useGravity = true;
+                _rb.useGravity = true;
             }
             _parent.transform.position = parentOriginalPos;
             _parent.transform.rotation = parentOriginalRotation;
-                
-            if (_inspectScript==null)
-            {
-                _inspectScript = _parent.GetComponent<EE_InspectObject>();
-            }
             _inspectScript.enabled = false;
             isInspecting = false;
         }
@@ -116,7 +112,7 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
             {
                 if (!_singleObjectScript.dontUseDefaultInteraction) _singleObjectScript.Interact(); 
                 if (_singleObjectScript.destroyOnUse) _singleObjectScript.DestroyOnUse();
-                if (_singleObjectScript.continuousInteraction && !_singleObjectScript.autoInteract) _singleObjectScript.SetCanInteractFlag(this);
+                if (_singleObjectScript.continuousInteraction && !_singleObjectScript.autoInteract) _canInteract = true;
                 _singleObjectScript.onInteractWithItem?.Invoke();
             }
         }

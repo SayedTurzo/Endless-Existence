@@ -60,18 +60,7 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
         }
 
         public abstract void Interact();
-
-        public void SetCanInteractFlag(InteractionSensor sensor)
-        {
-            StartCoroutine(Delay(sensor));
-        }
         
-        IEnumerator Delay(InteractionSensor sensor)
-        {
-            yield return new WaitForSeconds(.2f);
-            sensor._canInteract = true;
-        }
-
         public void DestroyOnUse()
         {
             Destroy(this.gameObject);

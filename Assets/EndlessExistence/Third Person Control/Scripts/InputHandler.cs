@@ -44,10 +44,10 @@ namespace EndlessExistence.Third_Person_Control.Scripts
         public Vector2 LookInput { get; private set; }
         public bool JumpTriggered { get; private set; }
         public float SprintValue { get; private set; }
-        public bool InteractionTriggered { get; private set; }
+        public bool InteractionTriggered { get; internal set; }
         public bool SelectionTriggered { get; private set; }
-        public bool InspectionTriggered { get; private set; }
-        public bool OpenInventoryTriggered { get; private set; }
+        public bool InspectionTriggered { get; internal set; }
+        public bool OpenInventoryTriggered { get; internal set; }
 
         public static InputHandler Instance { get; private set; }
 
@@ -96,11 +96,9 @@ namespace EndlessExistence.Third_Person_Control.Scripts
 
             inspectAction.performed += context => InspectionTriggered = true;
             inspectAction.canceled += context => InspectionTriggered = false;
-
-            // openInventoryAction.performed += context => OpenInventoryTriggered = true;
-            // openInventoryAction.canceled += context => OpenInventoryTriggered = false;
-            //openInventoryAction.triggered => 
-
+            
+            openInventoryAction.performed += context => OpenInventoryTriggered = true;
+            openInventoryAction.canceled += context => OpenInventoryTriggered = false;
         }
 
         private void OnEnable()
