@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using CustomInspector;
+using EndlessExistence.Inventory.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -21,7 +22,8 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
         public bool destroyOnUse = false;
         [Header("Custom Event")]
         public UnityEvent onInteractWithItem;
-        
+
+        internal EE_ItemInventoryInfo _itemInventoryInfo;
     
         public string Description
         {
@@ -54,9 +56,19 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
 
         }
 
+        private void Start()
+        {
+            _itemInventoryInfo = gameObject.GetComponent<EE_ItemInventoryInfo>();
+        }
+
         public void SetDescription()
         {
             gameObject.GetComponent<EE_Object>().objectDescription.text = Description;
+        }
+
+        protected void AddObjectToInventory()
+        {
+            EE_Inventory.Instance.AddItem(_itemInventoryInfo);
         }
 
         public abstract void Interact();

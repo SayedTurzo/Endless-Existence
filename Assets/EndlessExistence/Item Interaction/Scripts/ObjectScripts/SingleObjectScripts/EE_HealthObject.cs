@@ -7,6 +7,7 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts.SingleObjectSc
         public override void Interact()
         {
             Debug.Log("<color=green>Health used!</color>");
+            AddObjectToInventory();
         }
     }
 }

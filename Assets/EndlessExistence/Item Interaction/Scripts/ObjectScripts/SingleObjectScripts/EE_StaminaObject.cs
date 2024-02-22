@@ -1,3 +1,4 @@
+using EndlessExistence.Inventory.Scripts;
 using UnityEngine;
 
 namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts.SingleObjectScripts
@@ -7,6 +8,7 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts.SingleObjectSc
         public override void Interact()
         {
             Debug.Log("<color=blue>Stamina used!</color>");
+            AddObjectToInventory();
         }
     }
 }
