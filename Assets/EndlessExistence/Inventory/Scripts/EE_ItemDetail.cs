@@ -1,24 +1,19 @@
 using System;
+using CustomInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace EndlessExistence.Inventory.Scripts
 {
-    public class EE_ItemDetail : MonoBehaviour
+    [CreateAssetMenu(fileName = "NewEE_ItemDetail", menuName = "Inventory Item/EE_ItemDetail", order = 1)]
+    public class EE_ItemDetail : ScriptableObject
     {
         public string itemName;
         public Sprite itemImage;
         public string itemDescription;
+        public int quantity;
         public int itemCurrentQuantity;
-        public int maxStack;
-
-        private Button button;
-        
-
-        private void Start()
-        {
-            button = GetComponent<Button>();
-            button.onClick.AddListener(() => EE_Inventory.Instance.SetDetailPanel(itemName , itemDescription, itemImage , itemCurrentQuantity , maxStack));
-        }
+        public bool stackable = true;
+        [ShowIf(nameof(stackable))] public int maxStack=3;
     }
 }

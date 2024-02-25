@@ -25,6 +25,8 @@ namespace EndlessExistence.Inventory.Scripts
         
         private Vector3 warningInitialPos;
         public List<GameObject> addedItems;
+        
+        public ItemDatabase itemDatabase;
 
 
         private void Awake()
@@ -64,22 +66,22 @@ namespace EndlessExistence.Inventory.Scripts
         
         public void AddItem(EE_ItemInventoryInfo item)
         {
-            if (_inventory.ContainsKey(item.itemName) && item.stackable)
+            if (_inventory.ContainsKey(item.itemDetail.itemName) && item.itemDetail.stackable)
             {
-                if (_inventory[item.itemName] < item.maxStack)
+                if (_inventory[item.itemDetail.itemName] < item.itemDetail.maxStack)
                 {
                     itemReferences.warningText.gameObject.SetActive(true);
                     itemReferences.warningText.color = Color.green;
-                    itemReferences.warningText.text = "Added " + item.quantity + " " + item.itemName+"to inventory!";
+                    itemReferences.warningText.text = "Added " + item.itemDetail.quantity + " " + item.itemDetail.itemName+"to inventory!";
                     TextAnimation.MoveAndFadeText(itemReferences.warningText, warningInitialPos, new Vector3(0f, 450f, 0f), .5f, .5f);
-                    _inventory[item.itemName] += item.quantity;
-                    SetItemQuantity(item.itemName,_inventory[item.itemName]);
+                    _inventory[item.itemDetail.itemName] += item.itemDetail.quantity;
+                    SetItemQuantity(item.itemDetail.itemName,_inventory[item.itemDetail.itemName]);
                 }
                 else
                 {
                     itemReferences.warningText.gameObject.SetActive(true);
                     itemReferences.warningText.color = Color.red;
-                    itemReferences.warningText.text = "Can't stack more than " + item.maxStack + " " + item.itemName+"!";
+                    itemReferences.warningText.text = "Can't stack more than " + item.itemDetail.maxStack + " " + item.itemDetail.itemName+"!";
                     TextAnimation.MoveAndFadeText(itemReferences.warningText,warningInitialPos, new Vector3(0f, 450f, 0f), .5f, .5f);
                     Debug.Log("Maximum item reached");
                 }
@@ -88,17 +90,17 @@ namespace EndlessExistence.Inventory.Scripts
             {
                 itemReferences.warningText.gameObject.SetActive(true);
                 itemReferences.warningText.color = Color.green;
-                itemReferences.warningText.text = "Added " + item.quantity + " " + item.itemName+"to inventory!";
+                itemReferences.warningText.text = "Added " + item.itemDetail.quantity + " " + item.itemDetail.itemName+"to inventory!";
                 TextAnimation.MoveAndFadeText(itemReferences.warningText,warningInitialPos, new Vector3(0f, 450f, 0f), .5f, .5f);
                 // If the item doesn't exist, add it to the inventory
-                _inventory.Add(item.itemName, item.quantity);
-                InstantiateItem(itemReferences.itemPrefab, item.itemName ,item.itemDescription, item.itemIcon , _inventory[item.itemName] , item.maxStack);
+                _inventory.Add(item.itemDetail.itemName, item.itemDetail.quantity);
+                InstantiateItem(itemReferences.itemPrefab,item.itemDetail, item.itemDetail.itemName ,item.itemDetail.itemDescription, item.itemDetail.itemImage , _inventory[item.itemDetail.itemName] , item.itemDetail.maxStack);
             }
 
-            Debug.Log("Added " + item.quantity + " " + item.itemName + "(s) to the inventory.");
+            Debug.Log("Added " + item.itemDetail.quantity + " " + item.itemDetail.itemName + "(s) to the inventory.");
         }
         
-        private void InstantiateItem(GameObject prefab, string itemName ,string itemDes, Sprite icon , int amount ,int max)
+        private void InstantiateItem(GameObject prefab,EE_ItemDetail itemDetail, string itemName ,string itemDes, Sprite icon , int amount ,int max)
         {
             if (itemReferences.itemsHolder != null)
             {
@@ -106,14 +108,29 @@ namespace EndlessExistence.Inventory.Scripts
                 addedItems.Add(newItem);
                 newItem.gameObject.name = itemName;
                 newItem.GetComponent<Image>().sprite = icon;
-                EE_ItemDetail itemDetail = newItem.GetComponent<EE_ItemDetail>();
-                itemDetail.itemName = itemName;
-                itemDetail.itemImage = icon;
-                itemDetail.itemDescription = itemDes;
-                itemDetail.itemCurrentQuantity = amount;
-                itemDetail.maxStack = max;
+                newItem.GetComponent<EE_ItemDetailContainer>().itemDetail = itemDetail;
+                
+                EE_ItemDetail newItemDetailSO = newItem.GetComponent<EE_ItemDetailContainer>().itemDetail;
+                newItemDetailSO.itemName = itemName;
+                newItemDetailSO.itemImage = icon;
+                newItemDetailSO.itemDescription = itemDes;
+                newItemDetailSO.itemCurrentQuantity = amount;
+                newItemDetailSO.maxStack = max;
                 //itemDetail.gameObject.GetComponent<Button>().onClick.AddListener(() => SetDetailPanel(itemName , itemDes, icon , amount));
                 newItem.transform.localPosition = Vector3.zero;
+                
+                //itemDatabase.items.Add(itemDetail);
+                // EE_ItemDetailContainer newItemDetail = ScriptableObject.CreateInstance<EE_ItemDetailContainer>().itemDetail;
+                // newItemDetail.itemName = itemName;
+                // newItemDetail.itemImage = icon;
+                // newItemDetail.itemDescription = itemDes;
+                // newItemDetail.itemCurrentQuantity = amount;
+                // newItemDetail.maxStack = max;
+                //itemDatabase.items.Add(newItemDetail);
+                
+                // Save changes to the AssetDatabase (optional, for persistent changes)
+                UnityEditor.EditorUtility.SetDirty(itemDatabase);
+                UnityEditor.AssetDatabase.SaveAssets();
             }
             else
             {

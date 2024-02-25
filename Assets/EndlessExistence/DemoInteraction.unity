@@ -2830,7 +2830,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1396943289}
   m_HandleRect: {fileID: 1396943288}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4798,13 +4798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a28c8cea3d029c4abf4c61b90adbc06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Health Potion
-  itemDescription: This is a Health  Item.. Using this will increase player Health!
-    Player can stack this item in the inventory. Maximum stack is 99.
-  quantity: 1
-  itemIcon: {fileID: 21300000, guid: 6a4094a83917e23449da3cd966f9924f, type: 3}
-  stackable: 1
-  maxStack: 5
+  itemDetail: {fileID: 11400000, guid: 4c252df3c417e35428dae1d685e4c0b2, type: 2}
 --- !u!1 &1204476974
 GameObject:
   m_ObjectHideFlags: 0
@@ -5067,6 +5061,7 @@ MonoBehaviour:
     itemDescription: {fileID: 1339983380}
     itemImage: {fileID: 23464229}
   addedItems: []
+  itemDatabase: {fileID: 11400000, guid: 3fec4f6e23e979147b0469357c9ba69a, type: 2}
 --- !u!1 &1261426585
 GameObject:
   m_ObjectHideFlags: 0
@@ -5670,13 +5665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a28c8cea3d029c4abf4c61b90adbc06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Stamina Potion
-  itemDescription: This is a Stamina Item.. Using this will increase player stamina!
-    Player can stack this item in the inventory. Maximum stack is 99.
-  quantity: 1
-  itemIcon: {fileID: 21300000, guid: 05763a229665dfd48a7a5dd2754bad34, type: 3}
-  stackable: 1
-  maxStack: 3
+  itemDetail: {fileID: 0}
 --- !u!1 &1491893476
 GameObject:
   m_ObjectHideFlags: 0
@@ -6234,13 +6223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a28c8cea3d029c4abf4c61b90adbc06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Defence Potion
-  itemDescription: This is a Defence Item.. Using this will increase player defence!
-    Player can stack this item in the inventory. Maximum stack is 99.
-  quantity: 1
-  itemIcon: {fileID: 21300000, guid: 0c6a1022fc67b0a4091754e164bc4ff0, type: 3}
-  stackable: 1
-  maxStack: 5
+  itemDetail: {fileID: 0}
 --- !u!1001 &1636801197
 PrefabInstance:
   m_ObjectHideFlags: 0
