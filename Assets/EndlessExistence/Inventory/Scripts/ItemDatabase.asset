@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38e378a5bd73e449ac956db5e43a98d, type: 3}
   m_Name: ItemDatabase
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 0}
+  items: []

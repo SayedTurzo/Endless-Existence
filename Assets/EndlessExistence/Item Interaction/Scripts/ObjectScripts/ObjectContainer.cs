@@ -23,7 +23,7 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
         [Header("Custom Event")]
         public UnityEvent onInteractWithItem;
 
-        internal EE_ItemInventoryInfo _itemInventoryInfo;
+        internal EE_ItemDetail _itemDetail;
     
         public string Description
         {
@@ -58,7 +58,7 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
 
         private void Start()
         {
-            _itemInventoryInfo = gameObject.GetComponent<EE_ItemInventoryInfo>();
+            _itemDetail = gameObject.GetComponent<EE_ItemInventoryInfo>().itemDetail;
         }
 
         public void SetDescription()
@@ -68,7 +68,7 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
 
         protected void AddObjectToInventory()
         {
-            EE_Inventory.Instance.AddItem(_itemInventoryInfo);
+            EE_Inventory.Instance.AddItem(_itemDetail);
         }
 
         public abstract void Interact();

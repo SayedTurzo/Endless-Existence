@@ -12,7 +12,6 @@ public class EE_ItemDetailContainer : MonoBehaviour
     private void Start()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(() => EE_Inventory.Instance.SetDetailPanel(
-            itemDetail.itemName , itemDetail.itemDescription, itemDetail.itemImage , itemDetail.itemCurrentQuantity , itemDetail.maxStack));
+        button.onClick.AddListener(() => EE_Inventory.Instance.SetDetailPanel(itemDetail)); //itemDetail.itemName , itemDetail.itemDescription, itemDetail.itemImage , itemDetail.itemCurrentQuantity , itemDetail.maxStack)
     }
 }

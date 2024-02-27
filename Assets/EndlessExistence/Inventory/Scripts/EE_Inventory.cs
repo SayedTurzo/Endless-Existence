@@ -7,6 +7,7 @@ using EndlessExistence.Third_Person_Control.Scripts;
 using TMPro;
 using UMGS;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -15,13 +16,13 @@ namespace EndlessExistence.Inventory.Scripts
 {
     public class EE_Inventory : SingletonPersistent<EE_Inventory>
     {
-        [SerializeField] private GameObject inventoryCanvas;
+        public EE_ItemReferences itemReferences = new EE_ItemReferences();
 
         private GameObject _player;
         private ThirdPersonCharacterController _characterController;
         private Dictionary<string, int> _inventory;
 
-        public EE_ItemReferences itemReferences = new EE_ItemReferences();
+        
         
         private Vector3 warningInitialPos;
         public List<GameObject> addedItems;
@@ -33,19 +34,25 @@ namespace EndlessExistence.Inventory.Scripts
         {
             _player = FindObjectOfType<ThirdPersonCharacterController>().gameObject;
             _characterController = _player.GetComponent<ThirdPersonCharacterController>();
+            
+            itemReferences.meleeButton.onClick.AddListener(() => FilterItem(EE_ItemDetail.ItemType.Melee));
+            itemReferences.rangedButton.onClick.AddListener(() => FilterItem(EE_ItemDetail.ItemType.Ranged));
+            itemReferences.defenceButton.onClick.AddListener(() => FilterItem(EE_ItemDetail.ItemType.Defence));
+            itemReferences.potionButton.onClick.AddListener(() => FilterItem(EE_ItemDetail.ItemType.Potion));
+            itemReferences.allButton.onClick.AddListener(FilterItem);
         }
 
         private void Start()
         {
-            if (addedItems.Count==0)
-            {
-                itemReferences.detailPanel.SetActive(false);
-            }
-
             warningInitialPos = itemReferences.warningText.rectTransform.anchoredPosition;
             itemReferences.warningText.gameObject.SetActive(false);
             _inventory = new Dictionary<string, int>();
-            inventoryCanvas.SetActive(false);
+            itemReferences.inventoryCanvas.SetActive(false);
+
+            foreach (EE_ItemDetail itemDetail in itemDatabase.items)
+            {
+                InitItemInDictionary(itemDetail);
+            }
         }
 
         private void Update()
@@ -54,83 +61,94 @@ namespace EndlessExistence.Inventory.Scripts
             {
                 _characterController.enabled = !_characterController.enabled;
                 InputHandler.Instance.OpenInventoryTriggered = false;
-                inventoryCanvas.SetActive(!inventoryCanvas.activeSelf);
-                if (inventoryCanvas.activeSelf)
+                itemReferences.inventoryCanvas.SetActive(!itemReferences.inventoryCanvas.activeSelf);
+                
+                if (addedItems.Count==0)
                 {
-                    EE_ItemDetail item = addedItems[0].GetComponent<EE_ItemDetail>();
-                    SetDetailPanel(item.itemName , item.itemDescription, item.itemImage , item.itemCurrentQuantity ,item.maxStack);
+                    itemReferences.detailPanel.SetActive(false);
                 }
+                else
+                {
+                    SetDetailPanel(addedItems[0].GetComponent<EE_ItemDetailContainer>().itemDetail);
+                }
+            }
+        }
+
+        private void FilterItem(EE_ItemDetail.ItemType itemType)
+        {
+            foreach (var item in addedItems)
+            {
+                item.SetActive(item.GetComponent<EE_ItemDetailContainer>().itemDetail.itemType == itemType);
+            }
+        }
+        
+        private void FilterItem()
+        {
+            foreach (var item in addedItems)
+            {
+                item.SetActive(true);
             }
         }
         
         
-        public void AddItem(EE_ItemInventoryInfo item)
+        public void AddItem(EE_ItemDetail item)
         {
-            if (_inventory.ContainsKey(item.itemDetail.itemName) && item.itemDetail.stackable)
+            if (_inventory.ContainsKey(item.itemName) && item.stackable)
             {
-                if (_inventory[item.itemDetail.itemName] < item.itemDetail.maxStack)
+                if (item.itemCurrentQuantity < item.maxStack)
                 {
-                    itemReferences.warningText.gameObject.SetActive(true);
-                    itemReferences.warningText.color = Color.green;
-                    itemReferences.warningText.text = "Added " + item.itemDetail.quantity + " " + item.itemDetail.itemName+"to inventory!";
-                    TextAnimation.MoveAndFadeText(itemReferences.warningText, warningInitialPos, new Vector3(0f, 450f, 0f), .5f, .5f);
-                    _inventory[item.itemDetail.itemName] += item.itemDetail.quantity;
-                    SetItemQuantity(item.itemDetail.itemName,_inventory[item.itemDetail.itemName]);
+                    PickUpNotification(true,Color.green,"+ " + item.quantity + " " + item.itemName );
+                    _inventory[item.itemName] += item.quantity;
+                    item.itemCurrentQuantity++;
                 }
                 else
                 {
-                    itemReferences.warningText.gameObject.SetActive(true);
-                    itemReferences.warningText.color = Color.red;
-                    itemReferences.warningText.text = "Can't stack more than " + item.itemDetail.maxStack + " " + item.itemDetail.itemName+"!";
-                    TextAnimation.MoveAndFadeText(itemReferences.warningText,warningInitialPos, new Vector3(0f, 450f, 0f), .5f, .5f);
+                    PickUpNotification(true,Color.red,"Can't stack more than " + item.maxStack + " " + item.itemName+"!" );
                     Debug.Log("Maximum item reached");
                 }
             }
             else
             {
-                itemReferences.warningText.gameObject.SetActive(true);
-                itemReferences.warningText.color = Color.green;
-                itemReferences.warningText.text = "Added " + item.itemDetail.quantity + " " + item.itemDetail.itemName+"to inventory!";
-                TextAnimation.MoveAndFadeText(itemReferences.warningText,warningInitialPos, new Vector3(0f, 450f, 0f), .5f, .5f);
+                PickUpNotification(true,Color.green,"+ " + item.quantity + " " + item.itemName );
                 // If the item doesn't exist, add it to the inventory
-                _inventory.Add(item.itemDetail.itemName, item.itemDetail.quantity);
-                InstantiateItem(itemReferences.itemPrefab,item.itemDetail, item.itemDetail.itemName ,item.itemDetail.itemDescription, item.itemDetail.itemImage , _inventory[item.itemDetail.itemName] , item.itemDetail.maxStack);
+                _inventory.Add(item.itemName, item.quantity);
+                item.itemCurrentQuantity++;
+                itemDatabase.items.Add(item);
+                InstantiateItem(itemReferences.itemPrefab,item);
             }
 
-            Debug.Log("Added " + item.itemDetail.quantity + " " + item.itemDetail.itemName + "(s) to the inventory.");
+            Debug.Log("Added " + item.quantity + " " + item.itemName + "(s) to the inventory.");
+        }
+
+        public void InitItemInDictionary(EE_ItemDetail item)
+        {
+            if (_inventory.ContainsKey(item.itemName) && item.stackable)
+            {
+                if (item.itemCurrentQuantity < item.maxStack)
+                {
+                    _inventory[item.itemName] += item.quantity;
+                }
+            }
+            else
+            {
+                // If the item doesn't exist, add it to the inventory
+                _inventory.Add(item.itemName, item.quantity);
+                InstantiateItem(itemReferences.itemPrefab,item);
+            }
+
+            Debug.Log("Added " + item.quantity + " " + item.itemName + "(s) to the inventory.");
         }
         
-        private void InstantiateItem(GameObject prefab,EE_ItemDetail itemDetail, string itemName ,string itemDes, Sprite icon , int amount ,int max)
+        private void InstantiateItem(GameObject prefab,EE_ItemDetail itemDetail) //, string itemName ,string itemDes, Sprite icon , int amount ,int max
         {
             if (itemReferences.itemsHolder != null)
             {
                 GameObject newItem = Instantiate(prefab, itemReferences.itemsHolder, false);
                 addedItems.Add(newItem);
-                newItem.gameObject.name = itemName;
-                newItem.GetComponent<Image>().sprite = icon;
                 newItem.GetComponent<EE_ItemDetailContainer>().itemDetail = itemDetail;
-                
-                EE_ItemDetail newItemDetailSO = newItem.GetComponent<EE_ItemDetailContainer>().itemDetail;
-                newItemDetailSO.itemName = itemName;
-                newItemDetailSO.itemImage = icon;
-                newItemDetailSO.itemDescription = itemDes;
-                newItemDetailSO.itemCurrentQuantity = amount;
-                newItemDetailSO.maxStack = max;
-                //itemDetail.gameObject.GetComponent<Button>().onClick.AddListener(() => SetDetailPanel(itemName , itemDes, icon , amount));
+                newItem.gameObject.name = itemDetail.itemName;
+                newItem.GetComponent<Image>().sprite = itemDetail.itemImage;
                 newItem.transform.localPosition = Vector3.zero;
-                
-                //itemDatabase.items.Add(itemDetail);
-                // EE_ItemDetailContainer newItemDetail = ScriptableObject.CreateInstance<EE_ItemDetailContainer>().itemDetail;
-                // newItemDetail.itemName = itemName;
-                // newItemDetail.itemImage = icon;
-                // newItemDetail.itemDescription = itemDes;
-                // newItemDetail.itemCurrentQuantity = amount;
-                // newItemDetail.maxStack = max;
-                //itemDatabase.items.Add(newItemDetail);
-                
-                // Save changes to the AssetDatabase (optional, for persistent changes)
-                UnityEditor.EditorUtility.SetDirty(itemDatabase);
-                UnityEditor.AssetDatabase.SaveAssets();
             }
             else
             {
@@ -138,37 +156,50 @@ namespace EndlessExistence.Inventory.Scripts
             }
         }
 
-        public void SetDetailPanel(string itemName,string itemDescription,Sprite icon , int quantity ,int maxStack)
+        public void SetDetailPanel(EE_ItemDetail itemDetail)
         {
             if (!itemReferences.detailPanel.activeSelf)
             {
                 itemReferences.detailPanel.SetActive(true);
             }
-            itemReferences.itemName.text = itemName;
-            itemReferences.itemQuantity.text = "Quantity : "+quantity.ToString();
-            itemReferences.itemDescription.text = itemDescription;
-            itemReferences.itemImage.sprite = icon;
-            itemReferences.maxStack.text = "Max stack : "+maxStack.ToString();
+            
+            switch (itemDetail.itemType)
+            {
+                case EE_ItemDetail.ItemType.Melee:
+                    SetActivePanel(itemReferences.meleeDetailPanel);
+                    break;
+                case EE_ItemDetail.ItemType.Ranged:
+                    SetActivePanel(itemReferences.rangedDetailPanel);
+                    break;
+                case EE_ItemDetail.ItemType.Defence:
+                    SetActivePanel(itemReferences.defenceDetailPanel);
+                    break;
+                case EE_ItemDetail.ItemType.Potion:
+                    SetActivePanel(itemReferences.potionDetailPanel);
+                    break;
+            }
+            
+            itemReferences.itemName.text = itemDetail.itemName;
+            itemReferences.itemQuantity.text = "Quantity : "+itemDetail.itemCurrentQuantity.ToString();
+            itemReferences.itemDescription.text = itemDetail.itemDescription;
+            itemReferences.itemImage.sprite = itemDetail.itemImage;
+            itemReferences.maxStack.text = "Max stack : "+itemDetail.maxStack.ToString();
+        }
+        
+        void SetActivePanel(GameObject activePanel)
+        {
+            itemReferences.meleeDetailPanel.SetActive(activePanel == itemReferences.meleeDetailPanel);
+            itemReferences.rangedDetailPanel.SetActive(activePanel == itemReferences.rangedDetailPanel);
+            itemReferences.defenceDetailPanel.SetActive(activePanel == itemReferences.defenceDetailPanel);
+            itemReferences.potionDetailPanel.SetActive(activePanel == itemReferences.potionDetailPanel);
         }
 
-        private void SetItemQuantity(string itemName,int amount)
+        public void PickUpNotification(bool flag, Color color,string message)
         {
-            // Replace "YourObjectName" with the actual name you are looking for
-            string targetObjectName = itemName;
-
-            // Use LINQ to find the GameObject with the specified name
-            GameObject targetObject = addedItems.FirstOrDefault(go => go.name == targetObjectName);
-
-            if (targetObject != null)
-            {
-                // Do something with the found GameObject
-                targetObject.GetComponent<EE_ItemDetail>().itemCurrentQuantity = amount;
-            }
-            else
-            {
-                // GameObject with the specified name was not found
-                Debug.Log("GameObject with name " + targetObjectName + " not found");
-            }
+            itemReferences.warningText.gameObject.SetActive(flag);
+            itemReferences.warningText.color = color;
+            itemReferences.warningText.text = message;
+            TextAnimation.MoveAndFadeText(itemReferences.warningText, warningInitialPos, new Vector3(0f, 450f, 0f), .5f, .5f);
         }
 
         // Remove an item from the inventory

@@ -31,7 +31,7 @@ namespace EndlessExistence.Common
                 })
                 .OnComplete(() =>
                 {
-                    Debug.Log("TextMeshPro move, fade, and move back animation completed");
+                    //Debug.Log("TextMeshPro move, fade, and move back animation completed");
                     // Instantly move the TextMeshPro text back to its initial position
                     InstantMoveText(textMeshPro, initialPosition);
                 });
@@ -43,7 +43,7 @@ namespace EndlessExistence.Common
             textMeshPro.rectTransform.anchoredPosition = targetPosition;
             textMeshPro.gameObject.SetActive(false);
             
-            Debug.Log("TextMeshPro instantly moved to position: " + targetPosition);
+            //Debug.Log("TextMeshPro instantly moved to position: " + targetPosition);
         }
     }
 }

@@ -8,10 +8,19 @@ namespace EndlessExistence.Inventory.Scripts
     [Serializable]
     public class EE_ItemReferences
     {
+        public GameObject inventoryCanvas;
         public GameObject itemPrefab;
         public Transform itemsHolder;
         public TextMeshProUGUI warningText;
         public GameObject detailPanel;
+
+        [Header("Filtering Tabs")]
+        public Button meleeButton;
+        public Button rangedButton;
+        public Button defenceButton;
+        public Button potionButton;
+        public Button allButton;
+        
         
         // Details panel
         [Header("Item details panel")]
@@ -20,5 +29,11 @@ namespace EndlessExistence.Inventory.Scripts
         public TextMeshProUGUI maxStack;
         public TextMeshProUGUI itemDescription;
         public Image itemImage;
+
+        [Header("Specialized Item Type Details")]
+        public GameObject meleeDetailPanel;
+        public GameObject rangedDetailPanel;
+        public GameObject defenceDetailPanel;
+        public GameObject potionDetailPanel;
     }
 }
