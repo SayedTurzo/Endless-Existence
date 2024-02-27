@@ -24,5 +24,20 @@ namespace EndlessExistence.Inventory.Scripts
         public int itemCurrentQuantity;
         public bool stackable = true;
         [ShowIf(nameof(stackable))] public int maxStack=3;
+        
+        
+        // public void SaveItemQuantity()
+        // {
+        //     PlayerPrefs.SetInt(itemName + "_Quantity", itemCurrentQuantity);
+        //     PlayerPrefs.Save();
+        // }
+        //
+        // public void LoadItemQuantity()
+        // {
+        //     if (PlayerPrefs.HasKey(itemName + "_Quantity"))
+        //     {
+        //         itemCurrentQuantity = PlayerPrefs.GetInt(itemName + "_Quantity");
+        //     }
+        // }
     }
 }

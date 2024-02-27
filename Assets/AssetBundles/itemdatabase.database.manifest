@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 527939410
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 865ef21047231ba6efadb9d12b818140
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2f51e4513f495e875af305fddd4b2299
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: b38e378a5bd73e449ac956db5e43a98d, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 35e8dc54f91a931439d03aff0c887b39, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/EndlessExistence/Inventory/Scripts/ItemDatabase.asset
+Dependencies: []

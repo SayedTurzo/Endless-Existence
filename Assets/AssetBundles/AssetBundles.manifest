@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 2951820307
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: itemdatabase.database
+      Dependencies: {}
