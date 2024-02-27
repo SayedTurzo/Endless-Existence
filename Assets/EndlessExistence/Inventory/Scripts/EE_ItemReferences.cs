@@ -35,5 +35,14 @@ namespace EndlessExistence.Inventory.Scripts
         public GameObject rangedDetailPanel;
         public GameObject defenceDetailPanel;
         public GameObject potionDetailPanel;
+
+        [Header("Indicator Holders")] 
+        public GameObject indicator;
+        public TextMeshProUGUI indicatorText;
+        public RectTransform all;
+        public RectTransform melee;
+        public RectTransform ranged;
+        public RectTransform defence;
+        public RectTransform potion;
     }
 }

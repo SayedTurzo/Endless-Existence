@@ -62,7 +62,7 @@ namespace EndlessExistence.Inventory.Scripts
                 _characterController.enabled = !_characterController.enabled;
                 InputHandler.Instance.OpenInventoryTriggered = false;
                 itemReferences.inventoryCanvas.SetActive(!itemReferences.inventoryCanvas.activeSelf);
-                
+                FilterItem();
                 if (addedItems.Count==0)
                 {
                     itemReferences.detailPanel.SetActive(false);
@@ -76,6 +76,25 @@ namespace EndlessExistence.Inventory.Scripts
 
         private void FilterItem(EE_ItemDetail.ItemType itemType)
         {
+            itemReferences.indicatorText.text = itemType.ToString();
+            if (itemType == EE_ItemDetail.ItemType.Melee)
+            {
+                itemReferences.indicator.GetComponent<RectTransform>().anchoredPosition = itemReferences.melee.anchoredPosition;
+            }
+            else if (itemType == EE_ItemDetail.ItemType.Ranged)
+            {
+                itemReferences.indicator.GetComponent<RectTransform>().anchoredPosition = itemReferences.ranged.anchoredPosition;
+            }
+            else if (itemType == EE_ItemDetail.ItemType.Defence)
+            {
+                itemReferences.indicator.GetComponent<RectTransform>().anchoredPosition = itemReferences.defence.anchoredPosition;
+            }
+            else if (itemType == EE_ItemDetail.ItemType.Potion)
+            {
+                itemReferences.indicator.GetComponent<RectTransform>().anchoredPosition = itemReferences.potion.anchoredPosition;
+            }
+            
+            
             foreach (var item in addedItems)
             {
                 item.SetActive(item.GetComponent<EE_ItemDetailContainer>().itemDetail.itemType == itemType);
@@ -84,6 +103,8 @@ namespace EndlessExistence.Inventory.Scripts
         
         private void FilterItem()
         {
+            itemReferences.indicatorText.text = "All";
+            itemReferences.indicator.GetComponent<RectTransform>().anchoredPosition = itemReferences.all.anchoredPosition;
             foreach (var item in addedItems)
             {
                 item.SetActive(true);
