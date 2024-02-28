@@ -29,6 +29,7 @@ namespace EndlessExistence.Inventory.Scripts
         public TextMeshProUGUI maxStack;
         public TextMeshProUGUI itemDescription;
         public Image itemImage;
+        public Button dropButton;
 
         [Header("Specialized Item Type Details")]
         public GameObject meleeDetailPanel;
