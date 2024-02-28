@@ -49,20 +49,11 @@ namespace EndlessExistence.Inventory.Scripts
             {
                 _instance = this;
                 DontDestroyOnLoad(gameObject);
-
-                // Initialize your ItemDatabase if needed
-                // if (itemDatabase == null)
-                // {
-                //     itemDatabase = ScriptableObject.CreateInstance<ItemDatabase>();
-                // }
             }
             else
             {
                 Destroy(gameObject);
             }
-            
-            // Load the ItemDatabase during startup
-            //LoadItemDatabase();
             
             _player = FindObjectOfType<ThirdPersonCharacterController>().gameObject;
             _characterController = _player.GetComponent<ThirdPersonCharacterController>();
@@ -80,6 +71,9 @@ namespace EndlessExistence.Inventory.Scripts
             itemReferences.warningText.gameObject.SetActive(false);
             _inventory = new Dictionary<string, int>();
             itemReferences.inventoryCanvas.SetActive(false);
+            
+            // Load the ItemDatabase during startup
+            LoadItemDatabase();
 
             foreach (EE_ItemDetail itemDetail in itemDatabase.items)
             {
@@ -154,11 +148,11 @@ namespace EndlessExistence.Inventory.Scripts
                     _inventory[item.itemName] += item.quantity;
                     item.itemCurrentQuantity++;
                     
-#if UNITY_EDITOR
-                    UnityEditor.EditorUtility.SetDirty(item);
-                    UnityEditor.AssetDatabase.SaveAssets();
-                    UnityEditor.AssetDatabase.Refresh();
-#endif
+// #if UNITY_EDITOR
+//                     UnityEditor.EditorUtility.SetDirty(item);
+//                     UnityEditor.AssetDatabase.SaveAssets();
+//                     UnityEditor.AssetDatabase.Refresh();
+// #endif
                 }
                 else
                 {
@@ -173,11 +167,11 @@ namespace EndlessExistence.Inventory.Scripts
                 _inventory.Add(item.itemName, item.quantity);
                 item.itemCurrentQuantity++;
                 
-#if UNITY_EDITOR
-                UnityEditor.EditorUtility.SetDirty(item);
-                UnityEditor.AssetDatabase.SaveAssets();
-                UnityEditor.AssetDatabase.Refresh();
-#endif
+// #if UNITY_EDITOR
+//                 UnityEditor.EditorUtility.SetDirty(item);
+//                 UnityEditor.AssetDatabase.SaveAssets();
+//                 UnityEditor.AssetDatabase.Refresh();
+// #endif
                 itemDatabase.items.Add(item);
                 InstantiateItem(itemReferences.itemPrefab,item);
             }
@@ -301,12 +295,12 @@ namespace EndlessExistence.Inventory.Scripts
 
         private void OnApplicationQuit()
         {
-#if UNITY_EDITOR
-            UnityEditor.EditorUtility.SetDirty(itemDatabase);
-            UnityEditor.AssetDatabase.SaveAssets();
-            UnityEditor.AssetDatabase.Refresh();
-#endif
-            //SaveItemDatabase();
+// #if UNITY_EDITOR
+//             UnityEditor.EditorUtility.SetDirty(itemDatabase);
+//             UnityEditor.AssetDatabase.SaveAssets();
+//             UnityEditor.AssetDatabase.Refresh();
+// #endif
+            SaveItemDatabase();
         }
         
         private void SaveItemDatabase()
@@ -322,7 +316,7 @@ namespace EndlessExistence.Inventory.Scripts
                 string json = PlayerPrefs.GetString("ItemDatabase");
 
                 // Use ScriptableObject.CreateInstance to create an instance of ItemDatabase
-                itemDatabase = ScriptableObject.CreateInstance<ItemDatabase>();
+                //itemDatabase = ScriptableObject.CreateInstance<ItemDatabase>();
 
                 // Populate the fields of the created instance with the deserialized data
                 JsonUtility.FromJsonOverwrite(json, itemDatabase);
