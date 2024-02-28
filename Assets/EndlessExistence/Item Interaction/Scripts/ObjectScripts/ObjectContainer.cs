@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
 using CustomInspector;
 using EndlessExistence.Inventory.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
 {

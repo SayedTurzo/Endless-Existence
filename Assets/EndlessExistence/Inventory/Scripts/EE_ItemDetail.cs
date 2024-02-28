@@ -1,7 +1,6 @@
 using System;
 using CustomInspector;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace EndlessExistence.Inventory.Scripts
 {

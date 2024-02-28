@@ -1,5 +1,4 @@
 using UnityEngine;
-using CustomInspector;
 using EndlessExistence.Inventory.Scripts;
 
 namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
