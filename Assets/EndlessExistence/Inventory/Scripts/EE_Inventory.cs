@@ -153,7 +153,7 @@ namespace EndlessExistence.Inventory.Scripts
                     Debug.Log("Maximum item reached");
                 }
             }
-            else if(item.stackable)
+            else if(item.itemCurrentQuantity < item.maxStack)
             {
                 PickUpNotification(true,Color.green,"+ " + item.quantity + " " + item.itemName );
                 // If the item doesn't exist, add it to the inventory
