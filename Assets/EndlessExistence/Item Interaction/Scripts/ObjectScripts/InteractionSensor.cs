@@ -113,6 +113,7 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
                 if (!_singleObjectScript.dontUseDefaultInteraction) _singleObjectScript.Interact(); 
                 if (_singleObjectScript.destroyOnUse) _singleObjectScript.DestroyOnUse();
                 if (_singleObjectScript.continuousInteraction && !_singleObjectScript.autoInteract) _canInteract = true;
+                _baseObjectScript.PlaySound();
                 _singleObjectScript.onInteractWithItem?.Invoke();
             }
         }

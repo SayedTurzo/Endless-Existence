@@ -31,6 +31,8 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
         [SerializeField]private GameObject effect;
         private GameObject _effect;
         
+        public AudioClip pickUpSound;
+        
         [HorizontalLine("",5,FixedColor.Red)] 
         [BackgroundColor(FixedColor.DustyBlue)]
         [SerializeField,ReadOnly]
@@ -76,6 +78,14 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
             if (useEffect && effectHolder!=null && effect!=null)
             {
                 _effect.SetActive(!_effect.activeSelf);
+            }
+        }
+
+        public void PlaySound()
+        {
+            if (pickUpSound!=null)
+            {
+                AudioSource.PlayClipAtPoint(pickUpSound, transform.position);
             }
         }
     }

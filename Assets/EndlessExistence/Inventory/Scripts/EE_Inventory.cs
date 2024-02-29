@@ -153,7 +153,7 @@ namespace EndlessExistence.Inventory.Scripts
                     Debug.Log("Maximum item reached");
                 }
             }
-            else
+            else if(item.stackable)
             {
                 PickUpNotification(true,Color.green,"+ " + item.quantity + " " + item.itemName );
                 // If the item doesn't exist, add it to the inventory
@@ -174,21 +174,25 @@ namespace EndlessExistence.Inventory.Scripts
 
         public void InitItemInDictionary(EE_ItemDetail item)
         {
-            if (_inventory.ContainsKey(item.itemName) && item.stackable)
+            if (item != null)
             {
-                if (item.itemCurrentQuantity < item.maxStack)
+                // Your existing code here...
+                if (_inventory.ContainsKey(item.itemName) && item.stackable)
                 {
-                    _inventory[item.itemName] += item.quantity;  //item.itemCurrentQuantity;
+                    if (item.itemCurrentQuantity < item.maxStack)
+                    {
+                        _inventory[item.itemName] += item.quantity;  //item.itemCurrentQuantity;
+                    }
                 }
-            }
-            else
-            {
-                // If the item doesn't exist, add it to the inventory
-                _inventory.Add(item.itemName, item.quantity);   //_inventory.Add(item.itemName, item.itemCurrentQuantity);
-                InstantiateItem(itemReferences.itemPrefab,item);
-            }
+                else
+                {
+                    // If the item doesn't exist, add it to the inventory
+                    _inventory.Add(item.itemName, item.quantity);   //_inventory.Add(item.itemName, item.itemCurrentQuantity);
+                    InstantiateItem(itemReferences.itemPrefab,item);
+                }
 
-            Debug.Log("Added " + item.quantity + " " + item.itemName + "(s) to the inventory.");
+                Debug.Log("Added " + item.quantity + " " + item.itemName + "(s) to the inventory.");
+            }
         }
         
         private void InstantiateItem(GameObject prefab,EE_ItemDetail itemDetail) //, string itemName ,string itemDes, Sprite icon , int amount ,int max

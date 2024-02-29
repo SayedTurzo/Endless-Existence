@@ -47,7 +47,26 @@ namespace EndlessExistence.Third_Person_Control.Scripts
             _rigidbody = GetComponent<Rigidbody>();     // get character controller component
             _remainingJumps = maxJumps;
             _additionalJumps = 0;
+            
+            //FindAndPrintObjectNameWithAudioSource();
         }
+        
+        // void FindAndPrintObjectNameWithAudioSource()
+        // {
+        //     // Find all GameObjects with an AudioSource component in the scene
+        //     AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        //
+        //     // Check if any AudioSource components were found
+        //     if (audioSources.Length > 0)
+        //     {
+        //         // Print the name of the first GameObject with an AudioSource component
+        //         Debug.Log("Object with AudioSource: " + audioSources[0].gameObject.name);
+        //     }
+        //     else
+        //     {
+        //         Debug.Log("No object with AudioSource found in the scene.");
+        //     }
+        // }
 
         private void Update()
         {

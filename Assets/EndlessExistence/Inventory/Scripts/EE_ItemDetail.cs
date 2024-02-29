@@ -23,6 +23,6 @@ namespace EndlessExistence.Inventory.Scripts
         public int quantity;
         public int itemCurrentQuantity;
         public bool stackable = true;
-        [ShowIf(nameof(stackable))] public int maxStack=3;
+        [ShowIf(nameof(stackable))] public int maxStack=1;
     }
 }
