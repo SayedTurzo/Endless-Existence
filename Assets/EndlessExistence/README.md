@@ -1,8 +1,8 @@
-# Easy Item Interaction
+# Easy Interaction System
 
 ## Description
 
-Easy Item Interaction is a Unity asset designed to simplify the process of creating interactable objects in your game. With Easy Item Interaction, you can quickly add interaction functionality to game objects, allowing players to pick up, examine, use, or manipulate them within the game environment.
+Easy Interaction system is a Unity asset designed to simplify the process of creating interactable objects in your game. With Easy Item Interaction, you can quickly add interaction functionality to game objects, allowing players to pick up, examine, use, or manipulate them within the game environment.
 
 ## Features
 
@@ -10,6 +10,8 @@ Easy Item Interaction is a Unity asset designed to simplify the process of creat
 
 [//]: # (- Support for various interaction types, such as pick up, examine, use, and more.)
 - Intuitive editor interface for configuring object interactions.
+- Inspection system
+- Inventory (Under development)
 - Seamless integration with Unity's physics and input systems.
 - Extensible architecture for adding custom interaction logic.
 
@@ -20,10 +22,11 @@ Easy Item Interaction is a Unity asset designed to simplify the process of creat
 - **EE_IItem**: Interface for single Item functions
 - **InteractionSensor**: For detecting player collision
 - **InputHandler**: Player input
+- **EE_Inventory**: Inventory System
 
 ## Installation
 
-1. Download the Easy Item Interaction package from the Unity Asset Store.
+1. Download the Easy Interaction System package from the Unity Asset Store.
 2. Import the package into your Unity project.
 3. Follow the provided documentation for instructions on how to use the asset.
 
@@ -32,6 +35,8 @@ Easy Item Interaction is a Unity asset designed to simplify the process of creat
 
 1. New Input System
 2. Text mesh pro
+3. DoTween
+4. Custom inspector
 
 
 ## Usage
@@ -62,5 +67,5 @@ For any inquiries or support requests, please contact us at abusayedbinabdullah[
 
 ## License
 
-Easy Item Interaction is released under the common license.
+Easy Interaction System is released under the common license.
 
