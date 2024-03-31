@@ -1,28 +1,36 @@
+
+---
+
 # Easy Interaction System
+
+Please check the Documentation folder for more detailed documentation..
+
+Online Documentation : https://endlessexistence.com/2024/03/31/easy-interaction-system-documentation/
+
 
 ## Description
 
-Easy Interaction system is a Unity asset designed to simplify the process of creating interactable objects in your game. With Easy Item Interaction, you can quickly add interaction functionality to game objects, allowing players to pick up, examine, use, or manipulate them within the game environment.
+Easy Interaction System is a Unity asset designed to simplify the process of creating interactive objects in your game. With Easy Interaction System, you can quickly add interaction functionality to game objects, allowing players to pick up, examine, use, or manipulate them within the game environment.
 
 ## Features
 
 - Easily create interactable objects with customizable interaction behaviors.
-
-[//]: # (- Support for various interaction types, such as pick up, examine, use, and more.)
 - Intuitive editor interface for configuring object interactions.
-- Inspection system
-- Inventory (Under development)
+- **Inspection System:** Allows players to examine objects in detail, providing additional information or context.
+- **Inventory System:** Pick up, drop, and manage items within the game environment. Seamlessly integrates with the interaction system.
 - Seamless integration with Unity's physics and input systems.
 - Extensible architecture for adding custom interaction logic.
 
 ## Key Components
 
-- **EE_Item**: Base component for all kind of Items.
-- **ItemContainer**: For storing Single Item data
-- **EE_IItem**: Interface for single Item functions
-- **InteractionSensor**: For detecting player collision
-- **InputHandler**: Player input
-- **EE_Inventory**: Inventory System
+- **EE_Item:** Base component for all types of interactable items.
+- **ItemContainer:** Stores single item data.
+- **EE_IItem:** Interface for single item functions.
+- **InteractionSensor:** Detects player collision for interaction.
+- **InputHandler:** Handles player input for interaction actions.
+- **EE_Inventory:** Manages the player's inventory, including picking up and dropping items.
+- **ItemDatabase:** Scriptable object to store items in the inventory.
+- **InspectObject:** Script to use the inspect object feature.
 
 ## Installation
 
@@ -30,42 +38,44 @@ Easy Interaction system is a Unity asset designed to simplify the process of cre
 2. Import the package into your Unity project.
 3. Follow the provided documentation for instructions on how to use the asset.
 
-
-## Dependency
+## Dependencies
 
 1. New Input System
-2. Text mesh pro
+2. TextMeshPro
 3. DoTween
-4. Custom inspector
-
+4. Custom Inspector
 
 ## Usage
 
-1. Create new item from Hierarchy .. (Hierarchy > Endless Existence > Create new Item )
+1. Create a new item from the Hierarchy (Hierarchy > Endless Existence > Create new Item).
 2. Configure the item settings according to your requirements.
-3. Attach an Interaction item component to the newly created object.
-4. Set up the necessary fields.
+3. Attach an Interaction Item component to the newly created object.
+4. Set up the necessary fields for interaction.
 5. Customize the interaction events to add custom behaviors or responses.
 
 ## Examples
 
-- DemoInteraction demonstrating various interaction scenarios.
-- Demo videos showcasing Easy Item Interaction in action.
+- DemoInteraction scene demonstrating various interaction scenarios.
+- Demo videos showcasing Easy Interaction System in action.
 
 ## Support
 
-For any inquiries or support requests, please contact us at abusayedbinabdullah[@]gmail.com.
-
-## Resources
-
-- No resources now
+For inquiries or support requests, please contact us at abusayedbinabdullah[@]gmail.com.
 
 ## Version History
 
-- **Version 1.0**: First version with basic functionalities
+- **Version 1.0**: Initial release with basic functionalities.
 - ...
 
 ## License
 
-Easy Interaction System is released under the common license.
+This asset includes third-party content, such as images, audio, and fonts, that are used under various licenses.
+All third-party content is provided in compliance with the respective license agreements.
+For details on the third-party components and their licenses, please refer to the "Third Party Notices.txt" file included in the package.
 
+Asset uses images, audio under Creative Commons CC0; see Third-Party Notices.txt file in package for details.
+Asset uses font under Freeware; see Third-Party Notices.txt file in package for details.
+
+---
+
+Feel free to adjust or add any additional sections as needed. Let me know if there's anything else you'd like to include or modify!

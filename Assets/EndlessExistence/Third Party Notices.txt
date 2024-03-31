@@ -1,0 +1,25 @@
+Third-Party Notices
+
+1. Image: colorful.png
+   License: Creative Commons CC0
+   Source: [https://pixabay.com/illustrations/colorful-rainbow-gradient-geometric-2174045/]
+   
+2. Image: triangles.png
+   License: Creative Commons CC0
+   Source: [https://pixabay.com/vectors/triangles-polygon-geometric-texture-1430105/]
+   
+3. Image: bag.png
+   License: Creative Commons CC0
+   Source: [https://pixabay.com/vectors/bag-backpack-green-green-bag-6030181/]
+   
+4. Image: joystick.png
+   License: Creative Commons CC0
+   Source: [https://pixabay.com/vectors/circle-round-icon-drawing-radio-7333076/]
+
+5. Font: Mouldy Cheese Regular
+   License: Freeware
+   Source: [https://www.fontspace.com/mouldy-cheese-font-f95405]
+
+6. Audio: [Pickup.mp3]
+   License: [Creative Commons CC0]
+   Source: [https://pixabay.com/sound-effects/paper-collect-1-186598/]
