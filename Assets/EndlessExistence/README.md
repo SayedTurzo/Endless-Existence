@@ -69,13 +69,9 @@ For inquiries or support requests, please contact us at abusayedbinabdullah[@]gm
 
 ## License
 
-This asset includes third-party content, such as images, audio, and fonts, that are used under various licenses.
-All third-party content is provided in compliance with the respective license agreements.
+This asset includes third-party font, that are used under freeware licenses.
 For details on the third-party components and their licenses, please refer to the "Third Party Notices.txt" file included in the package.
 
-Asset uses images, audio under Creative Commons CC0; see Third-Party Notices.txt file in package for details.
 Asset uses font under Freeware; see Third-Party Notices.txt file in package for details.
 
 ---
-
-Feel free to adjust or add any additional sections as needed. Let me know if there's anything else you'd like to include or modify!
