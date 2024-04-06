@@ -34,6 +34,11 @@ Easy Interaction System is a Unity asset designed to simplify the process of cre
 
 ## Installation
 
+Important Notice: You will have to install 2 asset store packages
+- DOTween (HOTween v2)
+- Custom Inspector
+please install this 2..
+
 1. Download the Easy Interaction System package from the Unity Asset Store.
 2. Import the package into your Unity project.
 3. Follow the provided documentation for instructions on how to use the asset.
