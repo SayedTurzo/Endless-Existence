@@ -1,12 +1,10 @@
 using System.Collections;
-using CustomInspector;
 using UnityEngine;
 
 namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts.SingleObjectScripts
 {
     public class EE_SimpleDoubleDoor : ObjectContainer
     {
-        [HorizontalLine("Door References", 2, FixedColor.Yellow)]
         public Transform leftRotatablePart; // Reference to the left Transform responsible for rotating the door
 
         public Transform rightRotatablePart; // Reference to the right Transform responsible for rotating the door

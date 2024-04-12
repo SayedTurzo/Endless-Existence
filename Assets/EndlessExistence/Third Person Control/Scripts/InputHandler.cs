@@ -1,4 +1,4 @@
-using CustomInspector;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,13 +8,13 @@ namespace EndlessExistence.Third_Person_Control.Scripts
     {
         #region Serialized Private variables
         
-        [HorizontalLine("Input Action Asset",3,FixedColor.Blue)]
+
         [SerializeField] private InputActionAsset playerControls;
 
-        [HorizontalLine("Action Map Name References",3,FixedColor.Green)] 
+
         [SerializeField] private string actionMapName = "Player";
 
-        [HorizontalLine("Action Name References", 3, FixedColor.Yellow)] 
+
         [SerializeField] private string move = "Move";
         [SerializeField] private string look = "Look";
         [SerializeField] private string sprint = "Sprint";

@@ -1,12 +1,10 @@
 using System.Collections;
-using CustomInspector;
 using UnityEngine;
 
 namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts.SingleObjectScripts
 {
     public class EE_SimpleDoorObject : ObjectContainer
     {
-        [HorizontalLine("Door References", 2, FixedColor.Yellow)]
         public Transform rotatablePart; // Reference to the Transform responsible for rotating the door
         public float openAngle = 45f; // Angle to open the door (set in the inspector)
         public float smoothSpeed = 5f; // Speed of door rotation

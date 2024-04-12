@@ -1,4 +1,4 @@
-using CustomInspector;
+
 using UnityEngine;
 
 namespace EndlessExistence.Third_Person_Control.Scripts
@@ -8,18 +8,18 @@ namespace EndlessExistence.Third_Person_Control.Scripts
     {
         #region variables
 
-        [HorizontalLine("Movement related values", 2, FixedColor.Red)]
+
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _runSpeed = 10f;
         [SerializeField] private float _jumpHeight = 2f;
         [Range(0f, 1f)] [SerializeField] private float _smoothFacing = 0.75f;
         private bool _isRunning;
 
-        [HorizontalLine("Physics values", 2, FixedColor.Blue)]
+
         [SerializeField] private float _gravityScale = 2f;
         private const float _GRAVITY = -9.8f;
 
-        [HorizontalLine("Ground Check values", 2, FixedColor.Yellow)]
+
         [SerializeField] private float _groundCheckRadius = 0.1f;
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private bool _isGrounded;

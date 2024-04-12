@@ -1,12 +1,10 @@
 using System.Collections;
-using CustomInspector;
 using UnityEngine;
 
 namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts.SingleObjectScripts
 {
     public class EE_SlidingSingleDoor : ObjectContainer
     {
-        [HorizontalLine("Door References", 2, FixedColor.Yellow)]
         public Transform slidingPart;   // Reference to the Transform responsible for sliding the door
         public float openDistance = 2f; // Distance to slide the door (set in the inspector)
         public float smoothSpeed = 5f;  // Speed of door sliding

@@ -1,5 +1,4 @@
 using System;
-using CustomInspector;
 using UnityEngine;
 
 namespace EndlessExistence.Inventory.Scripts
@@ -23,6 +22,6 @@ namespace EndlessExistence.Inventory.Scripts
         public int quantity;
         public int itemCurrentQuantity;
         public bool stackable = true;
-        [ShowIf(nameof(stackable))] public int maxStack=1;
+        public int maxStack=1;
     }
 }

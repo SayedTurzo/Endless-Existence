@@ -1,12 +1,10 @@
 using System.Collections;
-using CustomInspector;
 using UnityEngine;
 
 namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts.SingleObjectScripts
 {
     public class EE_SlidingDoubleDoor : ObjectContainer
     {
-        [HorizontalLine("Door References", 2, FixedColor.Yellow)]
         public Transform leftSlidingPart;  // Reference to the left Transform responsible for sliding the door
         public Transform rightSlidingPart; // Reference to the right Transform responsible for sliding the door
         public float openDistance = 2f;    // Distance to slide the door (set in the inspector)

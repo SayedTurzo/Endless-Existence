@@ -1,4 +1,3 @@
-using CustomInspector;
 using EndlessExistence.Inventory.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,12 +6,12 @@ namespace EndlessExistence.Item_Interaction.Scripts.ObjectScripts
 {
     public abstract class ObjectContainer : MonoBehaviour,EE_IObject
     {
-        [MessageBox("Description = Item Description \n Strength = How much effect the item will have.", MessageBoxType.Info)]
+        [Tooltip("Description = Item Description \n Strength = How much effect the item will have.")]
         [SerializeField] private bool haveDescription = false;
-        [ShowIf(nameof(haveDescription))][SerializeField] private string description;
+        private string description;
         [SerializeField] private float strength;
 
-        [HorizontalLine("Interaction Settings")]
+        
         public bool autoInteract = false;
         public bool continuousInteraction;
         public bool dontUseDefaultInteraction = false;

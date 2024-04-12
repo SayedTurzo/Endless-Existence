@@ -1,4 +1,3 @@
-using CustomInspector;
 using TMPro;
 using UnityEngine;
 
@@ -17,8 +16,8 @@ namespace EndlessExistence.Item_Interaction.Scripts
         public GameObject inspectCanvas;
 
     
-        [Layer] public int targetLayerIndex;
-        private string _targetLayerName;
+        public int targetLayerIndex;
+        private string _targetLayerName = "InspectableItem";
                                                                                                                                                     
         private int _layerIndex;
         private string _defaultLayerName;
